@@ -1,38 +1,36 @@
 import React, {Component} from 'react';
 import {CATEGORIES} from "../constants";
-import {Button, Form, FormGroup, Input, Label} from "reactstrap";
 import quote from "../axios-quotes";
+import {Button, Form, FormGroup, Input, Label} from "reactstrap";
 
-class AddQuote extends Component {
+class EditQuote extends Component {
     state = {
-        category: Object.keys(CATEGORIES)[0],
-        author: '',
-        text: '',
+        quote: null,
     };
 
-    quoteChangeHandler = e => this.setState({[e.target.name]: e.target.value});
+    quoteEditHandler = e => this.setState({[e.target.name]: e.target.value});
 
-    formSubmitHandler = async (e) => {
+    formEditHandler = async (e) => {
         e.preventDefault();
 
-        const newQuote = {
+        const currentQuote = {
             category: this.state.category,
             author: this.state.author,
             text: this.state.text,
         };
 
-        await quote.post('/quotes.json', newQuote);
+        await quote.post('/quotes.json', currentQuote);
         this.props.history.push('/');
     };
 
     render() {
         return (
             <div>
-                <h2>Submit new quote</h2>
-                <Form onSubmit={this.formSubmitHandler}>
+                <h2>Edit a quote</h2>
+                <Form onSubmit={this.formEditHandler}>
                     <FormGroup>
-                        <Label for="category">Select a category</Label>
-                        <Input type="select" name="category" id="category" value={this.state.category} onChange={this.quoteChangeHandler}>
+                        <Label for="category">Category</Label>
+                        <Input type="select" name="category" id="category" value={this.state.category} onChange={this.quoteEditHandler}>
                             {CATEGORIES.map(category => (
                                 <option key={category} value={category}>{category}</option>
                             ))}
@@ -40,11 +38,11 @@ class AddQuote extends Component {
                     </FormGroup>
                     <FormGroup>
                         <Label for="author">Author</Label>
-                        <Input type="text" name="author" id="author" value={this.state.author} onChange={this.quoteChangeHandler}/>
+                        <Input type="text" name="author" id="author" value={this.state.author} onChange={this.quoteEditHandler}/>
                     </FormGroup>
                     <FormGroup>
                         <Label for="text">Quote text</Label>
-                        <Input type="textarea" name="text" id="text" value={this.state.text} onChange={this.quoteChangeHandler}/>
+                        <Input type="textarea" name="text" id="text" value={this.state.text} onChange={this.quoteEditHandler}/>
                     </FormGroup>
                     <Button>Submit</Button>
                 </Form>
@@ -53,4 +51,4 @@ class AddQuote extends Component {
     }
 }
 
-export default AddQuote;
+export default EditQuote;
