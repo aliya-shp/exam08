@@ -1,0 +1,13 @@
+.Quotes-Home {
+    display: flex;
+    width: 80%;
+}
+.Quote {
+    border: 1px solid black;
+}
+.Quotes {
+    width: 60%;
+}
+.Categories {
+    width: 35%;
+}

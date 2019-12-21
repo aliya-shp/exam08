@@ -12,9 +12,11 @@ function App() {
           <NavigationBar/>
           <Container>
               <Switch>
-                  <Route path="/" exact component={Quotes}/>
-                  <Route path="/add-quote" component={AddQuote}/>
-                  <Route path="/quotes/:id" component={EditQuote}/>
+                  <Route exact path="/" component={Quotes}/>
+                  <Route exact path="/quotes" component={Quotes}/>
+                  <Route exact path={`/quotes/:categoryId`} component={Quotes} />
+                  <Route exact path="/quotes/:quoteId/edit" component={EditQuote}/>
+                  <Route exact path="/add-quote" component={AddQuote}/>
                   <Route render={() => <h3>No such page</h3>}/>
               </Switch>
           </Container>
